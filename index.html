@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reboot01 · Profile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══ LOADING OVERLAY ══ -->
+<div id="loadingOverlay" style="display:none">
+  <div class="loader-ring"></div>
+  <span class="loader-text">LOADING PROFILE</span>
+</div>
+
+<!-- ══ LOGIN ══ -->
+<div class="login-box" id="loginBox">
+  <h2>Reboot01</h2>
+  <p class="login-tagline">Your <span>profile</span><br>dashboard</p>
+  <input id="usernameInput" placeholder="Username or Email" autocomplete="username" onkeypress="handleLoginKeyPress(event)">
+  <input id="passwordInput" type="password" placeholder="Password" autocomplete="current-password" onkeypress="handleLoginKeyPress(event)">
+  <button onclick="login()">Sign In →</button>
+  <p id="errorMsg"></p>
+</div>
+
+<!-- ══ DASHBOARD ══ -->
+<div class="container" id="dashboard" hidden>
+
+  <!-- Modern Header with User Info -->
+  <div class="modern-header">
+    <div class="header-brand">
+      <div class="brand-icon">G</div>
+      <span class="brand-text">GraphQL</span>
+    </div>
+    <div class="header-center">
+      <h1 class="page-title">Dashboard</h1>
+      <p class="welcome-text"><span id="topbarLogin">—</span></p>
+    </div>
+    <button class="logout-btn" onclick="logout()">
+      <div class="user-avatar-small" id="headerAvatar">?</div>
+      <span>Logout</span>
+    </button>
+  </div>
+
+  <!-- Top Stats Grid (3 columns) -->
+  <div class="stats-grid">
+    <!-- Total XP Card -->
+    <div class="stat-card stat-cyan">
+      <div class="stat-header">
+        <span class="stat-label">TOTAL XP</span>
+        <span class="stat-badge">Lifetime</span>
+      </div>
+      <div class="stat-value" id="statXP">—</div>
+      <div class="stat-footer">
+        <div class="stat-progress-track">
+          <div class="stat-progress-fill" id="xpProgressBar"></div>
+        </div>
+        <span class="stat-subtitle"><span id="xpProjectCount">0</span> projects completed</span>
+      </div>
+    </div>
+
+    <!-- Audit Ratio Card -->
+    <div class="stat-card stat-purple">
+      <div class="stat-header">
+        <span class="stat-label">AUDIT RATIO</span>
+      </div>
+      <div class="stat-value" id="statRatioValue">—</div>
+      <div class="stat-footer">
+        <div class="audit-mini-bars">
+          <div class="audit-mini-item">
+            <span class="audit-mini-label">DONE</span>
+            <span class="audit-mini-value audit-done" id="auditDoneMini">—</span>
+          </div>
+          <div class="audit-mini-item">
+            <span class="audit-mini-label">RECEIVED</span>
+            <span class="audit-mini-value audit-received" id="auditReceivedMini">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects Card -->
+    <div class="stat-card stat-blue">
+      <div class="stat-header">
+        <span class="stat-label">PROJECTS</span>
+        <span class="stat-badge"><span id="projectsTotal">0</span> total</span>
+      </div>
+      <div class="stat-value"><span id="passCount">0</span></div>
+      <div class="stat-footer">
+        <div class="project-mini-stats">
+          <div class="project-mini-item passed">
+            <div class="project-mini-icon">✓</div>
+            <span><span id="passCount2">0</span> Passed</span>
+          </div>
+          <div class="project-mini-item failed">
+            <div class="project-mini-icon">✕</div>
+            <span><span id="failCount">0</span> Failed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audit & Pass/Fail Breakdown (2 columns) -->
+  <div class="content-grid-2">
+    <!-- Audit Ratio Donut -->
+    <div class="modern-card">
+      <div class="card-header">
+        <h3 class="card-title">AUDIT BREAKDOWN</h3>
+        <span class="card-badge">Given vs Received</span>
+      </div>
+      <div class="chart-container chart-square">
+        <svg id="auditChart" viewBox="0 0 560 400"></svg>
+      </div>
+    </div>
+
+    <!-- Pass / Fail Split Bar -->
+    <div class="modern-card">
+      <div class="card-header">
+        <h3 class="card-title">PROJECT PASS / FAIL</h3>
+        <span class="card-badge">All projects</span>
+      </div>
+      <div class="chart-container chart-square">
+        <svg id="passFailChart" viewBox="0 0 320 260"></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Middle Section (2 columns) - Top Skills & XP Per Project -->
+  <div class="content-grid-2">
+    <!-- Top Skills -->
+    <div class="modern-card">
+      <div class="card-header">
+        <h3 class="card-title">TOP SKILLS</h3>
+        <span class="card-badge"><span id="skillsTotal">0</span> total</span>
+      </div>
+      <div class="skill-bars-modern" id="skillList">
+        <p class="loading-text">Loading…</p>
+      </div>
+    </div>
+
+    <!-- XP Per Project -->
+    <div class="modern-card">
+      <div class="card-header">
+        <h3 class="card-title">XP PER PROJECT</h3>
+        <span class="card-badge">Top contributors</span>
+      </div>
+      <div class="chart-container">
+        <svg id="xpProjectChart" viewBox="0 0 800 300"></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Section (3 columns) - Charts -->
+  <div class="content-grid-3">
+    <!-- Skill Radar -->
+    <div class="modern-card">
+      <div class="card-header">
+        <h3 class="card-title">SKILL RADAR</h3>
+        <span class="card-badge"><span id="radarSkillCount">0</span> skills</span>
+      </div>
+      <div class="chart-container chart-square">
+        <svg id="skillRadarChart" viewBox="0 0 400 350"></svg>
+      </div>
+    </div>
+
+    <!-- XP Progress Chart (Takes 2 columns for bigger display) -->
+    <div class="modern-card chart-span-2">
+      <div class="card-header">
+        <h3 class="card-title">XP PROGRESS</h3>
+        <span class="card-badge"><span id="xpTotalBadge">—</span> total</span>
+      </div>
+      <div class="chart-container">
+        <svg id="xpTimelineChart" viewBox="0 0 900 400"></svg>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
