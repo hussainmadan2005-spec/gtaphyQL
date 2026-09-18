@@ -1,17 +1,8 @@
-// ═══════════════════════════════════════════
-// auth.js — Authentication (login / logout / token)
-// ═══════════════════════════════════════════
 
 const SIGNIN_URL = 'https://learn.reboot01.com/api/auth/signin';
 const TOKEN_KEY  = 'r01_token';
 
-/**
- * Attempt to log in with a username/email and password.
- * Uses Basic Authentication with base64-encoded "credential:password".
- *
- * Returns the JWT string on success.
- * Throws a descriptive Error on failure.
- */
+
 export async function login(credential, password) {
   // Build the Basic auth header value
   const encoded = btoa(`${credential}:${password}`);

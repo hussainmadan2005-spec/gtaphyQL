@@ -1,15 +1,3 @@
-// ═══════════════════════════════════════════════════════
-// app.js — Main controller
-//
-// Query strategy (learned from working sample):
-// 1. user            → simple query, API scopes to auth user
-// 2. XP total        → transaction_aggregate sum (server-side, no cap)
-// 3. Audits          → aliased Done/Receive aggregates (server-side)
-// 4. Pass/Fail       → result_aggregate with grade filter + path _nlike piscine
-// 5. Skills          → transaction where type _ilike "skill_%" → count frequency
-// 6. XP timeline     → transaction rows with limit:10000 + order_by createdAt
-// 7. Level           → latest "level" transaction limit:1
-// ═══════════════════════════════════════════════════════
 
 import { formatKB } from './utils.js';
 import {

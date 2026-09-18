@@ -8,13 +8,11 @@
 </head>
 <body>
 
-<!-- ══ LOADING OVERLAY ══ -->
 <div id="loadingOverlay" style="display:none">
   <div class="loader-ring"></div>
   <span class="loader-text">LOADING PROFILE</span>
 </div>
 
-<!-- ══ LOGIN ══ -->
 <div class="login-box" id="loginBox">
   <h2>Reboot01</h2>
   <p class="login-tagline">Your <span>profile</span><br>dashboard</p>
@@ -24,11 +22,9 @@
   <p id="errorMsg"></p>
 </div>
 
-<!-- ══ DASHBOARD (rendered only after authentication) ══ -->
 <div class="container" id="dashboard" hidden></div>
 
 <template id="dashboardTemplate">
-  <!-- Modern Header with User Info -->
   <div class="modern-header">
     <div class="header-brand">
       <div class="brand-icon">G</div>
@@ -44,9 +40,7 @@
     </button>
   </div>
 
-  <!-- Top Stats Grid (3 columns) -->
   <div class="stats-grid">
-    <!-- Total XP Card -->
     <div class="stat-card stat-cyan">
       <div class="stat-header">
         <span class="stat-label">TOTAL XP</span>
@@ -61,7 +55,6 @@
       </div>
     </div>
 
-    <!-- Audit Ratio Card -->
     <div class="stat-card stat-purple">
       <div class="stat-header">
         <span class="stat-label">AUDIT RATIO</span>
@@ -81,7 +74,6 @@
       </div>
     </div>
 
-    <!-- Projects Card -->
     <div class="stat-card stat-blue">
       <div class="stat-header">
         <span class="stat-label">PROJECTS</span>
@@ -103,9 +95,7 @@
     </div>
   </div>
 
-  <!-- Audit & Pass/Fail Breakdown (2 columns) -->
   <div class="content-grid-2">
-    <!-- Audit Ratio Donut -->
     <div class="modern-card">
       <div class="card-header">
         <h3 class="card-title">AUDIT BREAKDOWN</h3>
@@ -116,7 +106,6 @@
       </div>
     </div>
 
-    <!-- Pass / Fail Split Bar -->
     <div class="modern-card">
       <div class="card-header">
         <h3 class="card-title">PROJECT PASS / FAIL</h3>
@@ -128,9 +117,7 @@
     </div>
   </div>
 
-  <!-- Middle Section (2 columns) - Top Skills & XP Per Project -->
   <div class="content-grid-2">
-    <!-- Top Skills -->
     <div class="modern-card">
       <div class="card-header">
         <h3 class="card-title">TOP SKILLS</h3>
@@ -141,7 +128,6 @@
       </div>
     </div>
 
-    <!-- XP Per Project -->
     <div class="modern-card">
       <div class="card-header">
         <h3 class="card-title">XP PER PROJECT</h3>
@@ -153,9 +139,7 @@
     </div>
   </div>
 
-  <!-- Bottom Section (3 columns) - Charts -->
   <div class="content-grid-3">
-    <!-- Skill Radar -->
     <div class="modern-card">
       <div class="card-header">
         <h3 class="card-title">SKILL RADAR</h3>
@@ -166,7 +150,6 @@
       </div>
     </div>
 
-    <!-- XP Progress Chart (Takes 2 columns for bigger display) -->
     <div class="modern-card chart-span-2">
       <div class="card-header">
         <h3 class="card-title">XP PROGRESS</h3>

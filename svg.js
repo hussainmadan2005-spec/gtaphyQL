@@ -1,8 +1,3 @@
-// ═══════════════════════════════════════════════════════
-// svg.js — All SVG graph renderers
-// Graphs: Audit Donut, Pass/Fail Bar, XP Timeline,
-//         XP per Project, Skill Radar
-// ═══════════════════════════════════════════════════════
 
 import { formatKB } from "./utils.js";
 
