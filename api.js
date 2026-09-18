@@ -15,16 +15,6 @@ import {
 
 const GQL_URL = 'https://learn.reboot01.com/api/graphql-engine/v1/graphql';
 
-// ── Core GraphQL fetcher ──────────────────────────────────────────────────────
-
-/**
- * Execute a GraphQL query against the Reboot01 API.
- *
- * @param {string} query     - GraphQL query string
- * @param {object} variables - Optional query variables
- * @returns {object}         - The `data` field from the GraphQL response
- * @throws  {Error}          - On network error, HTTP error, or GraphQL errors
- */
 export async function gql(query, variables = {}) {
   const token = getToken();
 

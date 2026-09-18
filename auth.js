@@ -3,7 +3,7 @@
 // ═══════════════════════════════════════════
 
 const SIGNIN_URL = 'https://learn.reboot01.com/api/auth/signin';
-const TOKEN_KEY  = 'r01_jwt';
+const TOKEN_KEY  = 'r01_token';
 
 /**
  * Attempt to log in with a username/email and password.

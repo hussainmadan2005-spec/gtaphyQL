@@ -26,16 +26,28 @@ const GRAPHQL_URL = 'https://learn.reboot01.com/api/graphql-engine/v1/graphql';
 
 let token = '';
 
-// ── Restore saved session ─────────────────────────────────────────────────────
-const savedToken = localStorage.getItem('r01_token');
+// ── Restore saved session (support legacy key and immediate activation)
+const savedToken = localStorage.getItem('r01_token') || localStorage.getItem('r01_jwt');
 if (savedToken) {
   token = savedToken;
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('loginBox').hidden  = true;
-    document.getElementById('dashboard').hidden = false;
+  function activateAfterLoad() {
+    const loginBox = document.getElementById('loginBox');
+    const dashboard = document.getElementById('dashboard');
+      if (loginBox) loginBox.hidden = true;
+      // Render dashboard template into the container (if not already rendered)
+      if (dashboard) {
+        renderDashboardFromTemplate();
+        dashboard.hidden = false;
+      }
     showLoading(true);
     loadProfile();
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', activateAfterLoad);
+  } else {
+    activateAfterLoad();
+  }
 }
 
 // ── Handle Enter key press in login form ──────────────────────────────────────
@@ -91,6 +103,7 @@ async function login() {
 
     localStorage.setItem('r01_token', token);
     document.getElementById('loginBox').hidden  = true;
+    renderDashboardFromTemplate();
     document.getElementById('dashboard').hidden = false;
     showLoading(true);
     loadProfile();
@@ -108,10 +121,24 @@ function logout() {
   localStorage.removeItem('r01_token');
   token = '';
   document.getElementById('dashboard').hidden = true;
+  const dashboard = document.getElementById('dashboard');
+  if (dashboard) dashboard.innerHTML = '';
   document.getElementById('loginBox').hidden  = false;
   document.getElementById('errorMsg').textContent = '';
   document.getElementById('usernameInput').value  = '';
   document.getElementById('passwordInput').value  = '';
+}
+
+// Render the dashboard content from the template only after authentication
+function renderDashboardFromTemplate() {
+  const dashboard = document.getElementById('dashboard');
+  if (!dashboard) return;
+  // If already populated, do nothing
+  if (dashboard.children.length > 0) return;
+  const tpl = document.getElementById('dashboardTemplate');
+  if (!tpl) return;
+  const clone = tpl.content.cloneNode(true);
+  dashboard.appendChild(clone);
 }
 
 // ── GraphQL helper ────────────────────────────────────────────────────────────
